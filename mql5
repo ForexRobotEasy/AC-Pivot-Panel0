@@ -1,0 +1,146 @@
+
+//+------------------------------------------------------------------+
+//|                                              AC Pivot Panel0.mq5 |
+//|                          Copyright 2022, Forex Robot Easy Team   |
+//|                                      https://www.forexroboteasy.com |
+//+------------------------------------------------------------------+
+#property copyright 'Copyright 2022, Forex Robot Easy Team'
+#property link      'https://www.forexroboteasy.com'
+
+// Input parameters
+input int Period = PERIOD_D1;   // Time period for pivot calculation
+input int MaxPivots = 10;       // Maximum number of previous pivot points to display
+
+// Global variables
+double PivotPoints[];
+double SupportLevels[];
+double ResistanceLevels[];
+int PivotCount;
+
+//+------------------------------------------------------------------+
+//| Custom indicator initialization function                         |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+    // Set indicator buffers
+    SetIndexBuffer(0, PivotPoints);
+    SetIndexBuffer(1, SupportLevels);
+    SetIndexBuffer(2, ResistanceLevels);
+
+    // Set indicator labels
+    SetIndexLabel(0, 'Pivot Points');
+    SetIndexLabel(1, 'Support Levels');
+    SetIndexLabel(2, 'Resistance Levels');
+
+    // Set indicator style
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexStyle(1, DRAW_LINE);
+    SetIndexStyle(2, DRAW_LINE);
+
+    // Set indicator colors
+    SetIndexColor(0, clrBlue);
+    SetIndexColor(1, clrGreen);
+    SetIndexColor(2, clrRed);
+
+    return(INIT_SUCCEEDED);
+}
+
+//+------------------------------------------------------------------+
+//| Custom indicator iteration function                              |
+//+------------------------------------------------------------------+
+int OnCalculate(const int rates_total,
+                const int prev_calculated,
+                const datetime &time[],
+                const double &open[],
+                const double &high[],
+                const double &low[],
+                const double &close[],
+                const long &tick_volume[],
+                const long &volume[],
+                const int &spread[])
+{
+    // Calculate pivot points, support and resistance levels
+    CalculatePivots();
+
+    // Plot previous pivot points
+    for(int i = 0; i < PivotCount; i++)
+    {
+        double pivot = PivotPoints[i];
+        PlotLevel(pivot, 'P' + IntegerToString(i+1));
+    }
+
+    // Plot support levels
+    for(int i = 0; i < PivotCount; i++)
+    {
+        double support = SupportLevels[i];
+        PlotLevel(support, 'S' + IntegerToString(i+1));
+    }
+
+    // Plot resistance levels
+    for(int i = 0; i < PivotCount; i++)
+    {
+        double resistance = ResistanceLevels[i];
+        PlotLevel(resistance, 'R' + IntegerToString(i+1));
+    }
+
+    return(rates_total);
+}
+
+//+------------------------------------------------------------------+
+//| Calculate pivot points, support and resistance levels             |
+//+------------------------------------------------------------------+
+void CalculatePivots()
+{
+    PivotCount = 0;
+    ArrayInitialize(PivotPoints, 0.0);
+    ArrayInitialize(SupportLevels, 0.0);
+    ArrayInitialize(ResistanceLevels, 0.0);
+
+    // Perform pivot point calculations here (Classic method)
+
+    // Add pivot points to the buffer
+    PivotPoints[PivotCount] = /* Pivot calculation result */;
+    PivotCount++;
+
+    // Add support levels to the buffer
+    SupportLevels[PivotCount] = /* Support level calculation result */;
+    PivotCount++;
+
+    // Add resistance levels to the buffer
+    ResistanceLevels[PivotCount] = /* Resistance level calculation result */;
+    PivotCount++;
+}
+
+//+------------------------------------------------------------------+
+//| Plot level on the chart                                          |
+//+------------------------------------------------------------------+
+void PlotLevel(double level, string label)
+{
+    // Plot level on the chart using specified label
+}
+
+//+------------------------------------------------------------------+
+//| Custom trading functions                                         |
+//| Add necessary trading functions here                             |
+//+------------------------------------------------------------------+
+
+//+------------------------------------------------------------------+
+//| Custom functions for appearance customization                     |
+//| Add necessary functions for appearance customization here         |
+//+------------------------------------------------------------------+
+
+//+------------------------------------------------------------------+
+//| Custom functions for integration with Forex trading platforms     |
+//| Add necessary functions for integration here                      |
+//+------------------------------------------------------------------+
+
+//+------------------------------------------------------------------+
+//| Custom functions for charting software compatibility              |
+//| Add necessary functions for compatibility here                    |
+//+------------------------------------------------------------------+
+
+//+------------------------------------------------------------------+
+//| Custom functions for documentation and setup                      |
+//| Add necessary functions for documentation and setup here           |
+//+------------------------------------------------------------------+
+
